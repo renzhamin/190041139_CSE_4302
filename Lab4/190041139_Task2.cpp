@@ -22,7 +22,7 @@ public:
     BankAccount(){min_balance = 0; cur_balance=0;}
     ~BankAccount(){
         cout<<"Account of "<<holder_name<<"with account no "<<account_no\
-            <<"is destroyed with a balance BDT "<<cur_balance<<"\n";
+            <<" is destroyed with a balance of BDT "<<cur_balance<<"\n";
     }
 
     void set_account_no(int no){account_no=no;}
@@ -33,7 +33,7 @@ public:
 
     bool update_balance(double change){
         if(cur_balance+change<min_balance){
-            cout<<"Minimum Balance requirement not satisfied\nMinimum Balance is"<<min_balance<<"\n";
+            cout<<"Minimum Balance requirement not satisfied\nMinimum Balance is "<<min_balance<<"\n";
             return 0;
         }
         cur_balance += change;
@@ -48,16 +48,28 @@ public:
         update_balance(-amount);
     }
     void giveInterest(double interest=2.5){
-        update_balance(cur_balance*(interest/100)*0.9);
+        update_balance(0.009*cur_balance*interest);
+    }
+    void showAllInfo(){
+        cout<<"Account type : ";
+        if(account_type==Savings) cout<<"Savings"<<"\n";
+        else cout<<"Current"<<"\n";
+        cout<<"Account holder name : "<<holder_name<<"\n";
+        cout<<"Account No : "<<account_no<<"\n";
+        cout<<"Current Balance : "<<cur_balance<<"\n";
+        cout<<"Minimum Balance : "<<min_balance<<"\n";
     }
 };
 
 int main(){
     BankAccount x;
     x.set_cur_balance(100);
+    x.set_holder_name("Kolt");
+    x.set_account_no(11031331);
     x.set_account_type(Types::Savings);
     x.giveInterest();
     x.deposit(.75);
     x.withdraw(3);
     x.showBalance();
+    x.showAllInfo();
 }
